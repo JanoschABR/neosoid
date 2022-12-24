@@ -90,13 +90,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="src\Extensions.cs" />
-    <Compile Include="src\Logger.cs" />
-    <Compile Include="src\NeosWS.cs" />
-    <Compile Include="src\Program.cs" />
-    <Compile Include="src\PulsoidRPC.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="Logger.cs" />
+    <Compile Include="NeosWS.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="PulsoidRPC.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="src\PulsoidWSS.cs" />
+    <Compile Include="PulsoidWSS.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
