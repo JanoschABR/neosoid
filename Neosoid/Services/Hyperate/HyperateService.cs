@@ -21,9 +21,6 @@ namespace JanoschR.Neosoid.Services.Hyperate {
             string device = null;
             if (args.Count > 0) {
                 device = args.StealFirst();
-            } else {
-                Logger.Error("Cannot create service: No input provided.");
-                return null;
             }
 
             HyperateSocket socket = new HyperateSocket();
