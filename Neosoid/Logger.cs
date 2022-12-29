@@ -46,6 +46,40 @@ namespace JanoschR.Neosoid {
             AnsiInjector.Inject();
         }
 
+        protected static bool debug = false;
+        public static void EnableDebug (bool enable) {
+            debug = enable;
+        }
+
+        protected static bool stylize = true;
+        public static void AllowStylization(bool allow) {
+            stylize = allow;
+        }
+
+        public static void DebugInfo (string message) {
+            if (!debug) return;
+            Console.WriteLine($" \u001b[38;5;236m[DInf] {message}\u001b[0m");
+        }
+        public static void DebugWarn (string message) {
+            if (!debug) return;
+            Console.WriteLine($" \u001b[38;5;58m[DWrn] {message}\u001b[0m");
+        }
+
+        public static void Good (string message) {
+            if (!stylize) {
+                Info(message);
+                return;
+            }
+            Console.WriteLine($" \u001b[38;5;255m[Info] \u001b[38;5;34m{message}\u001b[0m");
+        }
+        public static void Important (string message) {
+            if (!stylize) {
+                Info(message);
+                return;
+            }
+            Console.WriteLine($" \u001b[38;5;205m[Info] {message}\u001b[0m");
+        }
+
         public static void Info (string message) {
             Console.WriteLine ($" \u001b[38;5;255m[Info] {message}\u001b[0m");
         }

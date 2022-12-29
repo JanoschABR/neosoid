@@ -1,11 +1,27 @@
 ﻿
+using JanoschR.Neosoid.Neos;
+using JanoschR.Neosoid.Services;
+using JanoschR.Neosoid.Services.Pulsoid;
+using JanoschR.Neosoid.Shared;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
+
+using System.Timers;
+using Timer = System.Timers.Timer;
 
 namespace JanoschR.Neosoid {
     public class Program {
         public static void Main(string[] args) {
             new Program().Run(args);
+
+            Logger.Warn("Application has exited main loop. Press any key to close the application completely.");
+            Console.Read();
         }
 
         public static string[] asciiArt = new string[] {
@@ -23,53 +39,63 @@ namespace JanoschR.Neosoid {
 
             Console.WriteLine("  Neosoid, by JanoschR    \u001b[38;5;41mhttps://github.com/JanoschABR/neosoid\u001b[0m");
             Console.WriteLine(new string('-', Console.WindowWidth - 1));
-            Console.WriteLine();
         }
 
-        public void Run (string[] args) {
+        public void Run (string[] _args) {
             Logger.EnableANSI();
 
             Console.Title = "Neosoid";
             Console.SetWindowSize(Console.WindowWidth, 20);
             PrintBanner();
 
-            Guid widget = Guid.Empty;
-            if (args.Length > 0) {
-                string arg = args[0];
+            Logger.EnableDebug(true);
+            Logger.AllowStylization(true);
 
-                if (arg.StartsWith("http")) {
-                    Logger.Info("Widget URL specified. Parsing suffix GUID...");
-                    widget = PulsoidRPC.ParseSuffixGuid(arg);
-                } else {
-                    widget = Guid.Parse(arg);
-                }
-            } else {
+            List<string> args = new List<string>(_args);
 
-                Logger.Error("No arguments present. Please specifiy the Widget ID as the first argument.");
-                Logger.Info("Press any key to exit.");
-                Console.Read();
+            string _port = args.StealFirst();
+            int port = int.Parse(_port);
+            Logger.Info($"Using port {port}");
+
+            IHeartbeatServiceFactory factory = null;
+            string service = args.StealFirst();
+
+            factory = ServiceDiscovery.GetFactory(service);
+            if (factory == null) {
+                Logger.Error($"Could not find Service with Identifier \"{service}\"");
                 return;
             }
 
-            Logger.Info($"Using Widget ID \"{widget}\"");
-            var ramiel = PulsoidRPC.RetrieveRamielID(widget);
+            try {
+                Logger.Info($"Using {factory.GetName()} service.");
+                Console.WriteLine();
 
-            if (!ramiel.HasValue) {
-                Logger.Error("No ramiel ID!");
-                return;
-            } else {
-                Logger.Info($"Ramiel ID is {ramiel}");
-            }
+                var instance = factory.CreateService(args);
+                if (instance == null) return;
 
-            using (NeosWS nws = new NeosWS()) {
-                nws.Start(4444);
+                Container<int> heartRate = new Container<int>(0);
+                instance.OnHeartbeat += heartRate.Set;
 
-                using (PulsoidWSS wss = new PulsoidWSS()) {
-                    wss.OnHeartbeatReceived += (rate) => nws.SendMessage($"{rate}");
+                while (true) {
+                    using (NeosServer server = new NeosServer()) {
+                        server.Start(port);
 
-                    wss.Connect(ramiel.Value);
-                    Console.Read();
+                        Timer timer = new Timer();
+                        timer.Interval = 1000;
+                        timer.Elapsed += new ElapsedEventHandler((a, b) => {
+                            server.Send($"{heartRate.Get()}");
+                        });
+
+                        timer.Start();
+                        server.WaitWhileOpen();
+
+                        timer.Stop();
+                        server.Stop();
+                    }
                 }
+            } catch (Exception ex) {
+                Logger.Error($"Error occured during service runtime: [{ex.GetType().FullName}] {ex.Message}");
+                return;
             }
         }
     }

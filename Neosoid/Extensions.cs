@@ -5,6 +5,7 @@ using System.Data.SqlTypes;
 using System.Linq;
 using System.Net.WebSockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace JanoschR.Neosoid {
@@ -55,6 +56,26 @@ namespace JanoschR.Neosoid {
 
             } catch (Exception) {
                 return default(T);
+            }
+        }
+
+        /** <summary> Returns and removes the element at the given index </summary> */
+        public static T Steal <T> (this IList<T> list, int index) {
+            T value = list.ElementAt(index);
+            list.RemoveAt(index);
+            return value;
+        }
+
+        /** <summary> Returns and removes the first element </summary> */
+        public static T StealFirst <T> (this IList<T> list) {
+            if (list.Count <= 0) return default;
+            else return list.Steal(0);
+        }
+
+        /** <summary> Suspends the current thread while the wait function returns true. The wait function is queried at an interval equal to msTimeout, in milliseconds. </summary> */
+        public static void WaitWhile (this object _, int msTimeout, Func<bool> wait) {
+            while (wait.Invoke()) {
+                Thread.Sleep(msTimeout);
             }
         }
     }
