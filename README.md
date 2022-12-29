@@ -11,5 +11,9 @@ If you know of another service and would like it to be supported don't hesitate 
 > Neosoid uses the Pulsoid RPC to read data, which is not officially supported by the Pulsoid developers and may get you in trouble.  
 > Using an account you do not care about is strongly recommended.
 
+## To-Do List  
+<!-- Use :x: for uncompleted tasks and :heavy_check_mark: for completed tasks. -->
+[:x:] Support official Pulsoid API
+
 ## How to use
 Please see the [Wiki](https://github.com/JanoschABR/neosoid/wiki)
