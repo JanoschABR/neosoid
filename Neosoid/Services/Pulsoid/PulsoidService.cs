@@ -20,7 +20,7 @@ namespace JanoschR.Neosoid.Services.Pulsoid {
 
             string input = null;
             if (args.Count > 0) {
-                input = args[0];
+                input = args.StealFirst();
             } else {
                 Logger.Error("Cannot create service: No input provided.");
                 return null;
