@@ -9,7 +9,7 @@ If you know of another service and would like it to be supported don't hesitate 
 
 >**Warning**  
 > Neosoid uses the public Pulsoid RPC to retrieve the data streams used by widgets.  
-> This is not officially supported by the Pulsoid developers and could get the used account banned.
+> This is not officially supported by the Pulsoid developers and might get you in trouble.
 
 ## To-Do List  
 <!-- Use :x: for uncompleted tasks and :heavy_check_mark: for completed tasks. -->
