@@ -8,8 +8,8 @@ Currently only Pulsoid and HypeRate are supported.
 If you know of another service and would like it to be supported don't hesitate to open an Issue about it.
 
 >**Warning**  
-> Neosoid uses the Pulsoid RPC to read data, which is not officially supported by the Pulsoid developers and may get you in trouble.  
-> Using an account you do not care about is strongly recommended.
+> Neosoid uses the public Pulsoid RPC to retrieve the data streams used by widgets.  
+> This is not officially supported by the Pulsoid developers and could get the used account banned.
 
 ## To-Do List  
 <!-- Use :x: for uncompleted tasks and :heavy_check_mark: for completed tasks. -->
