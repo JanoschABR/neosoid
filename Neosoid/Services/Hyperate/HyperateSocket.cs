@@ -92,7 +92,7 @@ namespace JanoschR.Neosoid.Services.Hyperate {
             SendPhoenixMessage(joinMessage);
 
             Timer heartbeatTimer = new Timer();
-            heartbeatTimer.Interval = 15000;
+            heartbeatTimer.Interval = 25000;
             heartbeatTimer.Elapsed += new ElapsedEventHandler((a, b) => SendConnectionHeartbeat(heartbeatTimer));
             heartbeatTimer.Start();
         }
