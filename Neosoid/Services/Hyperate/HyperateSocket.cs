@@ -15,7 +15,7 @@ namespace JanoschR.Neosoid.Services.Hyperate {
         protected static string accessKey = "fwCC3S77TV6gX7LFZb0Lv8cnW21JTbdGHkTUDNIRAL58eqmiI5FEVgLzpbUcMr9E";
 
         protected override void HandlePhoenixMessage(PhoenixMessage message, string json) {
-            if (message.@event == "hr_update") {
+            if (message.GetEvent() == "hr_update") {
                 if (message.HasPayloadValue("hr")) {
 
                     int hr = (int)message.GetPayloadValue<long>("hr");
@@ -25,11 +25,11 @@ namespace JanoschR.Neosoid.Services.Hyperate {
                     Logger.DebugWarn($"Received hr_update message without hr value in payload: {json}");
                 }
 
-            } else if (message.@event == "phx_reply") {
+            } else if (message.GetEvent() == "phx_reply") {
                 if (message.HasPayloadValue("status")) {
                     string status = message.GetPayloadValue<string>("status");
                     
-                    if (message.@ref == 64) {
+                    if (message.GetRef() == 64) {
                         // Reply is for Join message
 
                         if (status == "error") {
