@@ -1,4 +1,4 @@
-![Neosoid Banner](https://github.com/JanoschABR/neosoid/blob/master/NeosoidBanner.png?raw=true)
+![Neosoid Banner](https://github.com/JanoschABR/neosoid/blob/master/NeosoidBanner_Small.png?raw=true)
 
 # Neosoid
 A heartbeat utility for NeosVR (or any other game/app that can read WebSockets).
