@@ -102,6 +102,10 @@
     <Compile Include="Services\Hyperate\PhoenixMockup\PhoenixMessage.cs" />
     <Compile Include="Services\Hyperate\PhoenixMockup\PhoenixSocket.cs" />
     <Compile Include="Services\IHeartbeatServiceFactory.cs" />
+    <Compile Include="Services\PulsoidAPI\PulsoidListener.cs" />
+    <Compile Include="Services\PulsoidAPI\PulsoidTokenAPI.cs" />
+    <Compile Include="Services\PulsoidAPI\PulsoidTokenInfo.cs" />
+    <Compile Include="Services\PulsoidAPI\PulsoidTokenService.cs" />
     <Compile Include="Services\PulsoidRPC\PulsoidRPC.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\PulsoidRPC\PulsoidListener.cs" />
