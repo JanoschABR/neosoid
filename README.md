@@ -9,7 +9,6 @@ If you know of another service and would like it to be supported don't hesitate 
 
 ## To-Do List  
 <!-- Use :x: for uncompleted tasks and :heavy_check_mark: for completed tasks. -->
-[:x:] Support official Pulsoid API  
 [:x:] Better argument parsing (i.e. `Key=Value` or `-Key Value`)
 
 ## How to use
