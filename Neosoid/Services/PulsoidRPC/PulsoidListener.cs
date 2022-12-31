@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace JanoschR.Neosoid.Services.Pulsoid {
+namespace JanoschR.Neosoid.Services.PulsoidRPC {
     public class PulsoidListener : GenericWebSocketListener, IHeartbeatService {
         protected override void HandleMessageReceived(string text) {
             var message = JsonConvert.DeserializeObject<WSSMessage>(text);

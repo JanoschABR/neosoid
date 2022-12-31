@@ -6,7 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace JanoschR.Neosoid.Services.Pulsoid {
+namespace JanoschR.Neosoid.Services.PulsoidRPC {
     public static class PulsoidRPC {
 
         public static string CreateRamielURL (Guid id) {

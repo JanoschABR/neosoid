@@ -6,14 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JanoschR.Neosoid.Services.Pulsoid {
+namespace JanoschR.Neosoid.Services.PulsoidRPC {
     public class PulsoidService : IHeartbeatServiceFactory {
         public string GetIdentifier() {
             return "pulsoid";
         }
 
         public string GetName() {
-            return "Pulsoid";
+            return "Pulsoid RPC";
         }
 
         public IHeartbeatService CreateService(List<string> args) {

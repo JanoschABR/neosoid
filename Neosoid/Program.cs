@@ -1,7 +1,7 @@
 ﻿
 using JanoschR.Neosoid.Neos;
 using JanoschR.Neosoid.Services;
-using JanoschR.Neosoid.Services.Pulsoid;
+using JanoschR.Neosoid.Services.PulsoidRPC;
 using JanoschR.Neosoid.Shared;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
