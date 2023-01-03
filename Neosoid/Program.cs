@@ -48,7 +48,7 @@ namespace JanoschR.Neosoid {
             Console.SetWindowSize(Console.WindowWidth, 20);
             PrintBanner();
 
-            Logger.EnableDebug(true);
+            Logger.EnableDebug(false);
             Logger.AllowStylization(true);
 
             KVArgs args = new KVArgs(_args);
@@ -58,7 +58,11 @@ namespace JanoschR.Neosoid {
                 WindowUtils.MinimizeConsoleWindow();
             }
 
-            if(!int.TryParse(_port, out int port)) {
+            if (args.Has("debug")) {
+                Logger.EnableDebug(true);
+            }
+
+            if (!int.TryParse(_port, out int port)) {
                 Logger.Error("Argument with key \"port\" must be an integer.");
                 return;
             }
