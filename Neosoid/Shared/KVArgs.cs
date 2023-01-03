@@ -80,6 +80,18 @@ namespace JanoschR.Neosoid.Shared {
         }
 
         public bool Has(string key) => ContainsKey(key);
+
+        public bool HasFlag (string key) {
+            if (!Has(key)) return false;
+
+            // Not a flag if it has a value :)
+            else {
+                bool isFlag = Get(key) == null;
+                if (!isFlag) Logger.DebugWarn($"Not classifying \"{key}\" as Flag because it has a value.");
+                return isFlag;
+            }
+        }
+
         public string Get(string key) {
             if (Has(key)) return pairs[key];
             else return null;
