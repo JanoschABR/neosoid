@@ -116,6 +116,7 @@
     <Compile Include="Shared\GenericWebSocketListener.cs" />
     <Compile Include="Services\IHeartbeatService.cs" />
     <Compile Include="Shared\KVArgs.cs" />
+    <Compile Include="Shared\WindowUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
