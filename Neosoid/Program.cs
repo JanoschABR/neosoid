@@ -58,7 +58,7 @@ namespace JanoschR.Neosoid {
                 Logger.EnableDebug(true);
             }
 
-            if (args.Has("minimize") || args.Has("minimized")) {
+            if (args.Has("minimize")) {
                 WindowUtils.MinimizeConsoleWindow();
             }
 
