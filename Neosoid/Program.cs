@@ -58,7 +58,10 @@ namespace JanoschR.Neosoid {
                 WindowUtils.MinimizeConsoleWindow();
             }
 
-            int port = int.Parse(_port);
+            if(!int.TryParse(_port, out int port)) {
+                Logger.Error("Argument with key \"port\" must be an integer.");
+                return;
+            }
             Logger.Info($"Using port {port}");
 
             IHeartbeatServiceFactory factory = null;
