@@ -10,6 +10,6 @@ namespace JanoschR.Neosoid.Services {
         string GetIdentifier();
         string GetName();
 
-        IHeartbeatService CreateService(List<string> args);
+        IHeartbeatService CreateService(KVArgs args);
     }
 }

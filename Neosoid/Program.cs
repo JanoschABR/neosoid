@@ -51,14 +51,14 @@ namespace JanoschR.Neosoid {
             Logger.EnableDebug(true);
             Logger.AllowStylization(true);
 
-            List<string> args = new List<string>(_args);
+            KVArgs args = new KVArgs(_args);
+            if (!args.Require("port", out string _port)) return;
 
-            string _port = args.StealFirst();
             int port = int.Parse(_port);
             Logger.Info($"Using port {port}");
 
             IHeartbeatServiceFactory factory = null;
-            string service = args.StealFirst();
+            if (!args.Require("service", out string service)) return;
 
             factory = ServiceDiscovery.GetFactory(service);
             if (factory == null) {

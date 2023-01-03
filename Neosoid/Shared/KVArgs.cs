@@ -1,0 +1,102 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.AccessControl;
+using System.Text;
+using System.Threading.Tasks;
+using System.Web;
+
+namespace JanoschR.Neosoid.Shared {
+    public class KVArgs : IReadOnlyDictionary<string, string> {
+        protected List<string> arguments = new List<string>();
+        protected Dictionary<string, string> pairs = new Dictionary<string, string>();
+
+        public IEnumerable<string> Keys => pairs.Keys;
+
+        public IEnumerable<string> Values => pairs.Values;
+
+        public int Count => pairs.Count;
+
+        public string this[string key] => pairs[key];
+
+        public KVArgs() { }
+        public KVArgs(string[] args) {
+            arguments = new List<string>(args);
+            Parse();
+        }
+
+        public void WriteArguments(string[] args) {
+            arguments = new List<string>(args);
+            Parse();
+        }
+
+        public void Parse() {
+            pairs = new Dictionary<string, string>();
+
+            int index = 0;
+            arguments.ForEach((argument) => {
+                index++;
+
+                if (argument.Contains("=")) {
+
+                    var args = argument.Split('=');
+                    if (args.Length == 2) {
+                        string key = HttpUtility.UrlDecode(args[0]);
+                        string value = HttpUtility.UrlDecode(args[1]);
+
+                        if (!pairs.ContainsKey(key)) {
+                            pairs.Add(key, value);
+                            Logger.DebugInfo($"#{index}: Found value \"{value}\" with key \"{key}\"");
+                        } else {
+                            Logger.Warn($"Ignoring argument #{index}: Key \"{key}\" is already used!");
+                        }
+
+                    } else {
+                        Logger.Warn($"Ignoring argument #{index}: Invalid number of elements in delimited string.");
+                        return;
+                    }
+
+                } else {
+                    Logger.DebugInfo($"#{index}: Found valueless key \"{argument}\"");
+                    pairs.Add(argument, null);
+                }
+            });
+        }
+
+        public bool ContainsKey(string key) {
+            return pairs.ContainsKey(key);
+        }
+
+        public bool TryGetValue(string key, out string value) {
+            return pairs.TryGetValue(key, out value);
+        }
+
+        public IEnumerator<KeyValuePair<string, string>> GetEnumerator() {
+            return pairs.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() {
+            return pairs.Keys.GetEnumerator();
+        }
+
+        public bool Has(string key) => ContainsKey(key);
+        public string Get(string key) {
+            if (Has(key)) return pairs[key];
+            else return null;
+        }
+
+        public bool Require (string key, out string result) {
+            if (Has(key)) {
+                result = Get(key);
+                return true;
+            }
+            else {
+                Logger.Error($"Missing required key \"{key}\"!");
+
+                result = null;
+                return false;
+            }
+        }
+    }
+}

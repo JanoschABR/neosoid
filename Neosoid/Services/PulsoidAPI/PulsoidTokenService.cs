@@ -1,4 +1,5 @@
 ﻿using JanoschR.Neosoid.Services.PulsoidRPC;
+using JanoschR.Neosoid.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,19 +16,18 @@ namespace JanoschR.Neosoid.Services.PulsoidAPI {
             return "Pulsoid Token";
         }
 
-        public IHeartbeatService CreateService(List<string> args) {
+        public IHeartbeatService CreateService(KVArgs args) {
 
-            Guid token = Guid.Empty;
+            /*Guid token = Guid.Empty;
             if (args.Count > 0) {
                 token = Guid.Parse(args.StealFirst());
             } else {
                 Logger.Error("Cannot create service: No token provided.");
                 return null;
-            }
+            }*/
 
-            //https://dev.pulsoid.net/api/v1/data/heart_rate/latest
-
-            bool tokenOK = PulsoidTokenAPI.CheckTokenValidity(token);
+            if (!args.Require("token", out string token)) return null;
+            bool tokenOK = PulsoidTokenAPI.CheckTokenValidity(Guid.Parse(token));
 
             if (tokenOK) {
                 PulsoidListener listener = new PulsoidListener();

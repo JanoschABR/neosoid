@@ -1,5 +1,6 @@
 ﻿
 
+using JanoschR.Neosoid.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,15 +17,24 @@ namespace JanoschR.Neosoid.Services.PulsoidRPC {
             return "Pulsoid RPC";
         }
 
-        public IHeartbeatService CreateService(List<string> args) {
+        public IHeartbeatService CreateService(KVArgs args) {
 
-            string input = null;
+            /*string input = null;
             if (args.Count > 0) {
                 input = args.StealFirst();
             } else {
                 Logger.Error("Cannot create service: No input provided.");
                 return null;
-            }
+            }*/
+
+            /*Guid guid;
+            if (input.Contains("pulsoid.net")) {
+                guid = PulsoidRPC.ParseSuffixGuid(input);
+            } else {
+                guid = Guid.Parse(input);
+            }*/
+
+            if (!args.Require("input", out string input)) return null;
 
             Guid guid;
             if (input.Contains("pulsoid.net")) {

@@ -16,12 +16,14 @@ namespace JanoschR.Neosoid.Services.Hyperate {
             return "HypeRate";
         }
 
-        public IHeartbeatService CreateService(List<string> args) {
+        public IHeartbeatService CreateService(KVArgs args) {
 
-            string device = null;
+            /*string device = null;
             if (args.Count > 0) {
                 device = args.StealFirst();
-            }
+            }*/
+
+            if (!args.Require("device", out string device)) return null;
 
             HyperateSocket socket = new HyperateSocket();
             socket.JoinDeviceChannel(device);
