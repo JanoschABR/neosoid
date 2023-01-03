@@ -47,7 +47,6 @@ namespace JanoschR.Neosoid.Shared {
 
                         if (!pairs.ContainsKey(key)) {
                             pairs.Add(key, value);
-                            Logger.DebugInfo($"#{index}: Found value \"{value}\" with key \"{key}\"");
                         } else {
                             Logger.Warn($"Ignoring argument #{index}: Key \"{key}\" is already used!");
                         }

@@ -54,12 +54,12 @@ namespace JanoschR.Neosoid {
             KVArgs args = new KVArgs(_args);
             if (!args.Require("port", out string _port)) return;
 
-            if (args.Has("minimize") || args.Has("minimized")) {
-                WindowUtils.MinimizeConsoleWindow();
-            }
-
             if (args.Has("debug")) {
                 Logger.EnableDebug(true);
+            }
+
+            if (args.Has("minimize") || args.Has("minimized")) {
+                WindowUtils.MinimizeConsoleWindow();
             }
 
             if (!int.TryParse(_port, out int port)) {
