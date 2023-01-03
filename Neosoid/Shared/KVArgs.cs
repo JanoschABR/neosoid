@@ -103,7 +103,7 @@ namespace JanoschR.Neosoid.Shared {
                 return true;
             }
             else {
-                Logger.Error($"Missing required Argument with \"{key}\"!");
+                Logger.Error($"Missing required Argument with key \"{key}\"!");
 
                 result = null;
                 return false;
