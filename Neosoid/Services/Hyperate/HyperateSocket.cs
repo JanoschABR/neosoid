@@ -12,7 +12,7 @@ using System.Timers;
 
 namespace JanoschR.Neosoid.Services.Hyperate {
     public class HyperateSocket : PhoenixSocket, IHeartbeatService {
-        protected static string accessKey = "fwCC3S77TV6gX7LFZb0Lv8cnW21JTbdGHkTUDNIRAL58eqmiI5FEVgLzpbUcMr9E";
+        protected static string accessKey = "API_KEY_HERE";
 
         protected override void HandlePhoenixMessage(PhoenixMessage message, string json) {
             if (message.GetEvent() == "hr_update") {
